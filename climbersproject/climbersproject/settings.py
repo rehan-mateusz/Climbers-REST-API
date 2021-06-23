@@ -36,12 +36,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 ]
 
 # Third party
 
 INSTALLED_APPS += [
     'bootstrap3',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
+    'allauth',
+    'allauth.account',
+    'rest_auth.registration',
 ]
 
 # My apps
@@ -50,6 +57,7 @@ INSTALLED_APPS += [
     'accounts',
 ]
 
+SITE_ID = 1
 
 
 MIDDLEWARE = [
@@ -92,7 +100,7 @@ DATABASES = {
         'NAME': 'climbers_db',
         'USER': 'postgres',
         'PASSWORD': 'postgrespassword',
-        'HOST': 'db',
+        'HOST': 'localhost',
         'PORT': '5432',
     }
 }
@@ -100,6 +108,10 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
+
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'users.serializers.UserSerializer',
+}
 
 AUTH_USER_MODEL = 'accounts.Account'
 
