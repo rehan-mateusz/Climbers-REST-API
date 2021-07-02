@@ -20,8 +20,12 @@ RUN mkdir -p /vol/web/media
 RUN mkdir -p /vol/web/static
 
 RUN adduser user
+
+RUN chown -R user:user /usr/local/lib/python3.8/site-packages/allauth/account/migrations
+
 RUN chown -R user:user /vol
-RUN chmod -R 755 /vol/web
+RUN chmod -R 755 /vol
+
 USER user
 
 EXPOSE 8000

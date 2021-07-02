@@ -1,7 +1,7 @@
 Django==3.2.3
 djangorestframework
 django-allauth
-django-rest-auth
+dj-rest-auth
 postgres
 django-bootstrap3
 requests
