@@ -10,5 +10,6 @@ router=DefaultRouter()
 router.register('account', views.AccountViewSet)
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('dj-rest-auth/', include('dj_rest_auth.urls')),
 ]
