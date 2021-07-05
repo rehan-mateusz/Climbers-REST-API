@@ -14,4 +14,4 @@ class Room(models.model):
 class Membership(models.model):
     account     = models.ForeignKey(User, on_delete=models.CASCADE)
     room        = models.ForeignKey(Room, on_delete=models.CASCADE)
-    date_joined = models.DateTimeField(default=datetime.now, blank=True)
+    date_joined = models.DateTimeField(auto_now=True, editable=False)
