@@ -1,17 +1,24 @@
 from django.db import models
 
-User = get_user_model()
+from climbersproject import settings
 
-class Room(models.model):
-    name    = models.CharField(verbose_name='room_name',
+class Room(models.Model):
+    name        = models.CharField(verbose_name='room_name',
         max_length=32)
-    owner   = models.ManyToManyField(User, on_delete=models.DO_NOTHING,
-                                     through='Membership')
+    members     = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                    through = 'Membership')
+    description = models.CharField(max_length=256)
+    date        = models.DateTimeField()
 
-    """To do: on_delete => custom function
-    to set the oldest member as a new owner"""
+    def get_owner(self):
+        owner = self.members.through.objects.order_by('date_joined').first()
+        return owner
 
-class Membership(models.model):
-    account     = models.ForeignKey(User, on_delete=models.CASCADE)
-    room        = models.ForeignKey(Room, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+
+class Membership(models.Model):
+    account     = models.ForeignKey(settings.AUTH_USER_MODEL,
+                    on_delete=models.CASCADE,)
+    room        = models.ForeignKey(Room, on_delete=models.CASCADE,)
     date_joined = models.DateTimeField(auto_now=True, editable=False)
