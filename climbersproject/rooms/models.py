@@ -22,3 +22,6 @@ class Membership(models.Model):
                     on_delete=models.CASCADE,)
     room        = models.ForeignKey(Room, on_delete=models.CASCADE,)
     date_joined = models.DateTimeField(auto_now=True, editable=False)
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=['account', 'room'], name='unique_joining')]
