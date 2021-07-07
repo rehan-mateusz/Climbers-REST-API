@@ -1,7 +1,5 @@
 from rest_framework import serializers
 
-from datetime import datetime
-
 from . import models
 
 class RoomSerializer(serializers.ModelSerializer):
