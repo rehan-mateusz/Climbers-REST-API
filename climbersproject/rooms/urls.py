@@ -11,5 +11,6 @@ router.register('rooms', views.RoomViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('memberships', views.MembershipListCreateView.as_view())
+    path('memberships/', views.MembershipListCreateView.as_view()),
+    path('memberships/<int:pk>/', views.MembershipDestroyView.as_view()),
     ]
