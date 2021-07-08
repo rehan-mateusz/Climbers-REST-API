@@ -5,7 +5,7 @@ from . import models
 class RoomSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Room
-        fields = ['name', 'description', 'date', ]
+        fields = ['name', 'description', 'date', 'id']
 
     def create(self, validated_data):
         new_room = models.Room.objects.create(
