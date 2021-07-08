@@ -11,7 +11,7 @@ class Room(models.Model):
     date        = models.DateTimeField()
 
     def get_owner(self):
-        owner = self.members.through.objects.order_by('date_joined').first()
+        owner = self.members.through.objects.order_by('date_joined').first().account
         return owner
 
     def __str__(self):
