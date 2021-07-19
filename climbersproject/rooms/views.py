@@ -15,7 +15,6 @@ class RoomViewSet(viewsets.ModelViewSet):
         """adds current user to validated_data"""
 
 class MembershipListCreateView(generics.ListCreateAPIView):
-    """to do: get queryset of each room"""
     serializer_class = serializers.MembershipSerializer
     queryset = models.Membership.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly, ]
