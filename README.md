@@ -1,7 +1,7 @@
 # Climbers REST API
 
-Climbers app will help climbers find partners to climb with. This application will allow users to create groups / events at specific date & location that other users will be able to join. 
-Application will provide those groups with online chat to communicate with other members of the group. 
+Climbers app will help climbers find partners to climb with. This application will allow users to create groups / events at specific date & location that other users will be able to join.
+Application will provide those groups with online chat to communicate with other members of the group.
 
 To do:
 - Room chats with ussage of websockets
@@ -9,6 +9,7 @@ To do:
 - Room archivisation after the date of event has passed
 - Friends feature
 - Private rooms feature
+- Tests
 
 # How to use
 Download the repository.
@@ -34,4 +35,3 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py runserver
 ```
-
