@@ -54,6 +54,7 @@ INSTALLED_APPS += [
 
 INSTALLED_APPS += [
     'accounts',
+    'rooms',
 ]
 
 SITE_ID = 1
@@ -101,6 +102,9 @@ DATABASES = {
         'PASSWORD': 'postgrespassword',
         'HOST': 'db',
         'PORT': '5432',
+        'TEST': {
+            'NAME': 'test_db',
+        },
     }
 }
 
@@ -159,10 +163,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
-    )
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',),
+    'DATETIME_FORMAT': "%d/%m/%Y %H:%M:%S",
 }
 
 REST_USE_JWT = True
@@ -171,5 +175,4 @@ JWT_AUTH_REFRESH_COOKIE = 'climbers-refresh-token'
 
 REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'accounts.serializers.AccountSerializer',
-    # 'LOGIN SERIALIZER': ''
 }
