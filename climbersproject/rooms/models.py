@@ -11,7 +11,8 @@ class Room(models.Model):
     date        = models.DateTimeField()
 
     def get_owner(self):
-        owner = self.members.through.objects.order_by('date_joined').first().account
+        owner = self.members.through.objects.order_by(
+            'date_joined').first().account
         return owner
 
     def __str__(self):
@@ -24,4 +25,5 @@ class Membership(models.Model):
     date_joined = models.DateTimeField(auto_now=True, editable=False)
 
     class Meta:
-        constraints = [models.UniqueConstraint(fields=['account', 'room'], name='unique_joining')]
+        constraints = [models.UniqueConstraint(fields=['account', 'room'],
+            name='unique_joining')]
