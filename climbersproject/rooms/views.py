@@ -9,6 +9,7 @@ from . import permissions
 class RoomViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.RoomSerializer
     queryset = models.Room.objects.all()
+    permission_classes = [IsAuthenticatedOrReadOnly & permissions.IsRoomOwner]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
@@ -18,6 +19,18 @@ class MembershipListCreateView(generics.ListCreateAPIView):
     serializer_class = serializers.MembershipSerializer
     queryset = models.Membership.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly, ]
+
+    def create(self, serializer):
+        if models.Membership.objects.filter(account_id=self.request.user.id,
+            room_id=self.request.data['room_id']).count():
+            msg = 'User is already a member of this room'
+            return Response(msg, status=status.HTTP_403_FORBIDDEN)
+        else:
+            serializer = self.get_serializer(data=self.request.data)
+            serializer.is_valid(raise_exception=True)
+            self.perform_create(serializer)
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user,
@@ -32,7 +45,7 @@ class MembershipDestroyView(mixins.DestroyModelMixin, generics.GenericAPIView):
     def destroy(self, request, *args, **kwargs):
         membership = self.get_object()
         msg = self.perform_destroy(membership)
-        return Response(msg, status=status.HTTP_204_NO_CONTENT)
+        return Response(msg, status=status.HTTP_200_OK)
 
     def perform_destroy(self, membership):
         if membership.room.members.count()==1:
