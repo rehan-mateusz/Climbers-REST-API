@@ -7,15 +7,18 @@ services:
     tty: true
     build:
       context: .
-    restart: on-failure:10
+    # restart: on-failure:1
     ports:
       - "8000:8000"
     volumes:
       - ./climbersproject:/climbersproject
-    command: >
-      sh -c "python manage.py makemigrations &&
-       python manage.py migrate &&
-       python manage.py runserver 0:8000"
+    command: |
+      sh -c
+      "coverage run manage.py test && coverage report"
+      # "python manage.py makemigrations &&
+      #  python manage.py migrate &&
+      #  python manage.py runserver 0:8000"
+
     environment:
       - DEBUG=1
     depends_on:
