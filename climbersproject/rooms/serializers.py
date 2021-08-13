@@ -10,12 +10,9 @@ class MembershipSerializer(serializers.ModelSerializer):
         fields = ['room_id', 'date_joined', 'username']
 
     def create(self, validated_data):
-        try:
-            new_membership = models.Membership.objects.create(
-                account = validated_data['user'],
-                room = models.Room.objects.get(id=validated_data['room_id']))
-        except:
-            raise serializers.ValidationError("User is already a member of this room")
+        new_membership = models.Membership.objects.create(
+            account = validated_data['user'],
+            room = models.Room.objects.get(id=validated_data['room_id']))
         return new_membership
 
 class RoomSerializer(serializers.ModelSerializer):
