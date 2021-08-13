@@ -15,7 +15,8 @@ services:
     command: |
       sh -c
       "coverage run manage.py test && coverage report"
-      # "python manage.py makemigrations &&
+      # "python manage.py wait_for_db
+      #  python manage.py makemigrations &&
       #  python manage.py migrate &&
       #  python manage.py runserver 0:8000"
 
